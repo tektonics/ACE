@@ -17,6 +17,7 @@ from ace_code.sae_anomaly.sidecar import SidecarModel
 from ace_code.sae_anomaly.discovery import FeatureDiscovery
 from ace_code.sae_anomaly.detector import AnomalyDetector
 from ace_code.sae_anomaly.pipeline import SAEAnomalyPipeline
+from ace_code.sae_anomaly.trainer import SAETrainer, SAETrainerConfig, train_sae_on_code_corpus
 
 __all__ = [
     "JumpReLUSAE",
@@ -24,4 +25,7 @@ __all__ = [
     "FeatureDiscovery",
     "AnomalyDetector",
     "SAEAnomalyPipeline",
+    "SAETrainer",
+    "SAETrainerConfig",
+    "train_sae_on_code_corpus",
 ]
