@@ -1,0 +1,54 @@
+# ACE-Code: Automated Circuit Extraction for Code Models
+# Core Dependencies
+
+# Deep Learning Framework
+torch>=2.0.0
+
+# Transformer Models & Tokenization
+transformers>=4.30.0
+
+# Mechanistic Interpretability
+transformer_lens>=1.0.0
+
+# Sparse Autoencoders
+sae_lens>=1.0.0
+
+# Model Loading & Quantization
+accelerate>=0.20.0
+bitsandbytes>=0.40.0
+
+# Tensor Operations
+einops>=0.6.0
+
+# Scientific Computing
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Machine Learning Utilities
+scikit-learn>=1.2.0
+
+# Code Parsing (AST manipulation)
+tree-sitter>=0.20.0
+tree-sitter-python>=0.20.0
+
+# Symbolic Mathematics
+sympy>=1.12
+
+# Data Processing
+datasets>=2.12.0
+pandas>=2.0.0
+
+# Progress Bars & Logging
+tqdm>=4.65.0
+loguru>=0.7.0
+
+# Configuration Management
+pyyaml>=6.0
+omegaconf>=2.3.0
+
+# Type Hints Support
+typing_extensions>=4.5.0
+
+# Testing
+pytest>=7.3.0
+pytest-cov>=4.1.0
