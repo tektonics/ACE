@@ -1,0 +1,91 @@
+# ACE-Code Phase 1: SAE-Based Anomaly Flagging Configuration
+# ==========================================================
+#
+# This configuration file sets up the sidecar model architecture for
+# detecting code anomalies using Sparse Autoencoders (SAEs).
+#
+# Based on:
+# - Tahimic & Cheng (2025): Mechanistic Interpretability of Code Correctness
+# - Nguyen et al. (2025): Deploying Interpretability to Production with Rakuten
+# - Lieberum et al. (2024): Gemma Scope - JumpReLU SAE Architecture
+
+# =============================================================================
+# Model Configuration
+# =============================================================================
+
+# Sidecar model selection
+# Recommended: meta-llama/Llama-3.1-8B-Instruct or google/gemma-2-2b-it
+model_name: "meta-llama/Llama-3.1-8B-Instruct"
+
+# Target layer for extraction (where "incorrectness" features peak)
+# Llama-3.1-8B: Layer 12
+# Gemma-2-2B: Layer 19
+target_layer: 12
+
+# Device configuration
+device: "auto"  # 'auto', 'cuda', 'cuda:0', 'cpu'
+dtype: "float16"  # 'float16', 'bfloat16', 'float32'
+quantization: "8bit"  # '8bit', '4bit', null
+
+# =============================================================================
+# SAE Configuration
+# =============================================================================
+
+# Expansion factor: ratio of SAE latents to model dimension
+# 8x-16x typical. For 4096-dim model -> 32k-65k latents
+sae_expansion_factor: 8
+
+# Path to pretrained SAE weights (null to initialize randomly)
+sae_path: null
+
+# =============================================================================
+# Feature Discovery Configuration
+# =============================================================================
+
+# Dataset for discovery
+dataset_name: "mbpp"  # Mostly Basic Python Problems
+
+# Number of samples to use (null = all)
+n_samples: null
+
+# Generation settings
+temperature: 0.0  # Greedy decoding as per paper
+max_new_tokens: 256
+
+# Feature selection
+top_k_features: 100  # Number of top incorrectness features to select
+min_t_statistic: 2.0  # Minimum t-statistic for feature selection
+max_frequency: 0.02  # Filter features active on >2% of general text
+
+# =============================================================================
+# Detection Configuration
+# =============================================================================
+
+# Anomaly thresholds
+anomaly_threshold: 0.5
+low_threshold: 0.3
+medium_threshold: 0.5
+high_threshold: 0.7
+critical_threshold: 0.9
+
+# Scoring settings
+use_weighted_score: true
+normalize_by_n_features: false
+
+# Routing
+route_to_verification: true  # Route flagged inputs to Phase 4
+
+# =============================================================================
+# Processing Configuration
+# =============================================================================
+
+# Chunked processing for long inputs
+chunk_size: 128
+chunk_overlap: 32
+
+# =============================================================================
+# Output Configuration
+# =============================================================================
+
+output_dir: "artifacts"
+log_level: "INFO"
